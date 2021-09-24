@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+    node:
+        build: node
+        environment:
+            - HOME=/app/var/cache
+        volumes:
+            - .:/app
+        working_dir: '/app'
+        command: 'npm start'
+        user: '${UID}:${GID}'
+        ports:
+            - '3000:3000'
+
+    varnish:
+        build: varnish
+        depends_on:
+            - node
+        volumes:
+            - ./varnish/:/usr/local/etc/varnish:ro
+        tmpfs:
+            - /usr/local/var/varnish:exec
+        ports:
+            - '80:80'

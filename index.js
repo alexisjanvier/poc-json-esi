@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 
 app.get('/fragment', (req, res) => {
     const now = new Date();
-    // res.set('Cache-Control', 's-maxage=10, max-age=10');
+    res.set('Cache-Control', 's-maxage=10, max-age=10');
     res.json({
         description: 'une description en cache',
         horaire: `${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}`,
@@ -42,7 +42,7 @@ app.get('/html', (req, res) => {
 
 app.get('/content-html', (req, res) => {
     res.set('Cache-Control', 's-maxage=60, max-age=30');
-    res.send('<h1>Hello Varnish</h1>');
+    res.send(`<h3>Salut Varnish à ${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}</h3>`);
 })
 
 app.listen(port, () => {

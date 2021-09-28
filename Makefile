@@ -26,11 +26,11 @@ install: ## install js dependencies
 
 .PHONY: start
 start: ## start local dev environment in docker containers
-	docker-compose up -d
+	docker-compose up -d --force-recreate
 
 .PHONY: stop
 stop: ## stop dockerised local dev environment
-	docker-compose down
+	docker-compose down --rmi all
 
 .PHONY: logs
 logs: ## display dockerised local dev environment logs
@@ -38,3 +38,6 @@ logs: ## display dockerised local dev environment logs
 
 connect-varnish: ## display dockerised local dev environment logs
 	docker-compose exec varnish ash
+
+connect-node: ## display dockerised local dev environment logs
+	docker-compose exec node bash

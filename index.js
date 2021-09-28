@@ -10,15 +10,15 @@ app.get('/', (req, res) => {
         title: 'un titre sans cache',
         content: '##ESI',
     })
-    res.send(response.replace('"##ESI"', '<esi:include src="http://node:3000/content" />'));
+    res.send(response.replace('"##ESI"', '<esi:include src="http://node:3000/fragment" />'));
 })
 
-app.get('/content', (req, res) => {
+app.get('/fragment', (req, res) => {
     const now = new Date();
-    res.set('Cache-Control', 's-maxage=10, max-age=10');
+    // res.set('Cache-Control', 's-maxage=10, max-age=10');
     res.json({
         description: 'une description en cache',
-        horaire: now.toLocaleTimeString(),
+        horaire: `${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}`,
     });
 })
 
